@@ -1,22 +1,18 @@
 import 'package:maybe/maybe.dart';
 
-/**
-* Returns a new lazy [Iterable] with all elements with a value in [maybeIterable].
-*
-* The matching elements have the same order in the returned iterable
-* as they have in [maybeIterable].
-*/
+/// Returns a new lazy [Iterable] with all elements with a value in [maybeIterable].
+///
+///  The matching elements have the same order in the returned iterable
+///  as they have in [maybeIterable].
 Iterable<T> filter<T>(Iterable<Maybe<T>> maybeIterable) {
   return (maybeIterable == null)
       ? Iterable<T>.empty()
       : maybeIterable.where((v) => !isNothing(v)).map((v) => some(v, null));
 }
 
-/**
- * Applies the function [f] to each element with a value of [maybeIterable] collection
- * in iteration order.
- */
-void forEach<T>(Iterable<Maybe<T>> maybeIterable, void f(T element)) {
+/// Applies the function [f] to each element with a value of [maybeIterable] collection
+/// in iteration order.
+void forEach<T>(Iterable<Maybe<T>> maybeIterable, void Function(T element) f) {
   if (maybeIterable != null) {
     maybeIterable
         .where((v) => !isNothing(v))
@@ -25,9 +21,7 @@ void forEach<T>(Iterable<Maybe<T>> maybeIterable, void f(T element)) {
   }
 }
 
-/**
- * Returns the number of elements with a value in [maybeIterable].
- */
+/// Returns the number of elements with a value in [maybeIterable].
 int count<T>(Iterable<Maybe<T>> maybeList) {
   return (maybeList == null) ? 0 : maybeList.where((v) => !isNothing(v)).length;
 }

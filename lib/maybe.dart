@@ -34,7 +34,7 @@ bool isSome<T>(Maybe<T> maybe) => !isNothing(maybe);
 /// Tests the [maybe] status : executes [some] if it contains a value, [whenNothing] if not.
 ///
 /// When adding [defaultValue], [isSome] is called with the value instead of [isNothing].
-void when<T>(Maybe<T> maybe,
+void whenMaybe<T>(Maybe<T> maybe,
     {MaybeNothing nothing, MaybeSome<T> some, MaybeDefault<T> defaultValue}) {
   if (isNothing(maybe)) {
     if (defaultValue != null) {
@@ -130,6 +130,11 @@ class Maybe<T> {
     return (maybeList == null)
         ? 0
         : maybeList.where((v) => v != null && !v._isNothing).length;
+  }
+
+  @override
+  String toString() {
+    return _isNothing ? 'Nothing' : 'Something($_value)';
   }
 }
 
